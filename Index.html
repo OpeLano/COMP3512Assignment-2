@@ -2,15 +2,42 @@
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Lab 8</title>
+   <title>Assignment 1</title>
 </head>
-<body>
    
 <header>
-Shamil Baig
-Ope Lano
-</header>
+   <h2>Search/Browse Songs</h2>
+   </header>
+   
+<body>
+<section>
+<main class ="container">
+   <form class=box>
+      <fieldset>
+      <input type ="radio" id="songSearch" name="chooseSong" value = "title">
+      <label for="songSearch">Title</label><br>      
 
+      <input type ="radio" id="songSearch" name="chooseSong" value = "artist">
+      <label for ="songSearch">Artist</label><br>
+      <select id="artist-select">
+         <option value="">Select an Artist</option>
+      </select>
 
+      <input type ="radio" id="songSearch" name="chooseSong" value = "Genre">
+      <label for ="songSearch">Genre</label>
+      <select id="genre-select">
+         <option value="">Select an Genre</option>
+      </select>
+   </fieldset>
+   </form>
+</main>
+</section>
+<article>
+
+</article>
+<script src="js/assign2.js"></script> 
+<script src="js/genres.json"></script>
+<script src="js/artists.json"></script>
+<script src="js/sample-songs.json"></script>
 </body>
 </html>
