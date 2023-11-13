@@ -3,38 +3,58 @@
 <head>
    <meta charset="utf-8">
    <title>Assignment 1</title>
+   <link rel="stylesheet" href = "css/style.css">
 </head>
    
 <header>
-   <h2>Search/Browse Songs</h2>
    </header>
-   
 <body>
-<section>
-<main class ="container">
-   <form class=box>
-      <fieldset>
-      <input type ="radio" id="songSearch" name="chooseSong" value = "title">
-      <label for="songSearch">Title</label><br>      
-
-      <input type ="radio" id="songSearch" name="chooseSong" value = "artist">
-      <label for ="songSearch">Artist</label><br>
-      <select id="artist-select">
-         <option value="">Select an Artist</option>
-      </select>
-
-      <input type ="radio" id="songSearch" name="chooseSong" value = "Genre">
-      <label for ="songSearch">Genre</label>
-      <select id="genre-select">
-         <option value="">Select an Genre</option>
-      </select>
-   </fieldset>
-   </form>
-</main>
-</section>
 <article>
-
+   <div class = "container1">
+   <h2>Search/Browse Songs</h2>
+   <table>
+      <tr>
+         <th>Title</th>
+         <th>Artist</th>
+         <th>Year</th>
+         <th>Genre</th>
+         <th>Popularity</th>
+      </tr>
+   </table>
+</div>
 </article>
+<aside>
+   <div class ="container2">
+      <form class=box>
+         <fieldset>
+         <h2>Basic Song Search</h2>   
+         <div class="form-group">   
+         <input type ="radio" id="titleSearch" name="chooseSong" value = "title">
+         <label for="titleSearch" >Title</label>  <br>   
+         </div>
+
+
+         <div class="form-container">
+            <div class="form-group">
+              <input type="radio" id="artistSearch" name="chooseSong" value="artist">
+              <label for="artistSearch">Artist</label>
+              <select id="artist-select">
+                <option value="">Select an Artist</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <input type="radio" id="genreSearch" name="chooseSong" value="genre">
+              <label for="genreSearch">Genre</label>
+              <select id="genre-select">
+                <option value="">Select a Genre</option>
+              </select>
+            </div>
+          </div>
+          
+      </fieldset>
+      </form>
+   </div>
+   </aside>
 <script src="js/assign2.js"></script> 
 <script src="js/genres.json"></script>
 <script src="js/artists.json"></script>
