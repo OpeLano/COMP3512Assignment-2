@@ -111,7 +111,7 @@ function sortSongs(songList, column) {
         }
 
         if(typeof aValue === 'number' && typeof bValue === 'number') {
-            return aValue - bValue;
+            return bValue - aValue;
         } else if (typeof aValue === 'string' && typeof bValue === 'string') {
             return aValue.localeCompare(bValue);
         } else {
