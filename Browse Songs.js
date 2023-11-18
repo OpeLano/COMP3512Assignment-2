@@ -1,11 +1,10 @@
-
-
 function displaySong() {
     const songList = JSON.parse(content3);
 
-    const table = document.getElementById("songs-list");
+    const table = document.querySelector("#songs-list");
 
     for (const song of songList) {
+
         const row = document.createElement("tr");
 
         const title = document.createElement("td");
@@ -33,7 +32,6 @@ function displaySong() {
     }
 }
 
-
 function showSingleSong(song_id) {
     const songsData = {
         "song": {
@@ -47,7 +45,7 @@ function showSingleSong(song_id) {
 
     const song = songsData[`song${song_id}`];
        
-    const singleSongElement = document.getElementById("songs-list");
+    const singleSongElement = document.querySelector("#songs-list");
 
         singleSongElement.innerHTML = `
             <h3>${song.title}</h3>
@@ -57,6 +55,8 @@ function showSingleSong(song_id) {
             <p>Popularity: ${song.popularity}</p>
         `;  
 }
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     displaySong();
