@@ -13,6 +13,13 @@ header {
     text-align: center;
 }
 
+footer {
+    background-color: rgb(47, 54, 47);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
 .form-box {
     display: flex;
     flex-direction: column;
@@ -44,8 +51,8 @@ aside {
 
 .container1 {
     height: 800px;
-    width: 80%;
-    margin-left: 400px;
+    width: 50%;
+    margin-left: 700px;
     margin-bottom: -825px;
     margin-right: 800px;
 }
@@ -74,6 +81,40 @@ table {
 .container2 {
     width: 50%;
 }
+.song-info-table-container{
+    width: 50%;
+    height: auto;
+    width: 50%;
+}
+
+#song-info-table{
+    background-color: lightgray;
+    border: 1px solid black; 
+}
+
+#song-info-table3{
+    border: 1px solid black;
+    float: center;
+}
+
+#song-info-text{
+    text-align: center;
+    font-weight: bold;
+}
+
+#song-info-result{
+    text-align: center;
+}
+
+#song-info-text2{
+    font-weight: bold;
+}
+
+#song-chart{
+    text-align: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
 
 #artist-select,
 #genre-select {
@@ -85,10 +126,10 @@ table {
     border: 1px solid black;
     border-radius: 4px;
     cursor: pointer;
-}
+} */
 
 
-fieldset {
+ fieldset {
     height: 750px;
 }
 
@@ -116,4 +157,22 @@ fieldset h2 {
 
 .form-group select {
     flex-grow: 1;
+}
+
+.container3 {
+    width: 50%;
+    height: auto;
+    width: 50%;
+}
+
+#header-close-button, 
+#header-credits-button, 
+#tablebutton{
+    width: 100px;
+    height: 40px;
+}
+
+#header-close-button, 
+#header-credits-button {
+    /* float: right; */
 }
