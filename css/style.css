@@ -1,12 +1,34 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
+
 
 body {
-    margin: 0px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    margin: 0;
+    padding-top: 130px;
 }
 
+.container {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    margin-top: 130px; 
+    margin-bottom: 100px; 
+}
+
+header{
+    position: absolute;
+    width: 100%;
+  }
+
 header {
+    top: 0;
     background-color: rgb(47, 54, 47);
     color: white;
     padding: 20px;
@@ -18,125 +40,86 @@ footer {
     color: white;
     padding: 20px;
     text-align: center;
+    bottom: 0;
+    width:100%;
+    position: fixed;
 }
 
-.form-box {
-    display: flex;
-    flex-direction: column;
+article, aside {
+    margin-top: 0px;
+    margin-bottom: 100px;
+    flex: 1;
 }
 
-.form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-label {
-    margin-right: 10px;
-}
-
-#artist-label {
-    margin-right: auto;
-}
-
-#artist-select,
-#genre-select {
-    width: auto;
-}
-
-aside {
-    padding: 10px;
-    width: 30%;
-}
-
-.container1 {
-    height: 800px;
-    width: 50%;
-    margin-left: 700px;
-    margin-bottom: -825px;
-    margin-right: 800px;
-}
-
-
-article h2 {
-    text-align: center;
-}
-
-table,
-td,
-th {
-    font-size: 30px;
-    margin: 20px;
-    padding: 10px;
-}
-
-th {
-    border: 1px solid;
-}
-
-table {
-    width: 110%;
-}
-
-.container2 {
-    width: 50%;
-}
-.song-info-table-container{
-    width: 50%;
-    height: auto;
-    width: 50%;
-}
-
-#song-info-table{
-    background-color: lightgray;
-    border: 1px solid black; 
-}
-
-#song-info-table3{
-    border: 1px solid black;
-    float: center;
-}
-
-#song-info-text{
-    text-align: center;
-    font-weight: bold;
-}
-
-#song-info-result{
-    text-align: center;
-}
-
-#song-info-text2{
-    font-weight: bold;
-}
-
-#song-chart{
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-#artist-select,
-#genre-select {
-    width: 50%;
+.search {
+    width: 44%;
     padding: 2px 6px;
     margin: 4px;
     background-color: white;
     color: black;
     border: 1px solid black;
     border-radius: 4px;
+    cursor: text; /
+}
+
+.sArrow {
     cursor: pointer;
-} */
-
-
- fieldset {
-    height: 750px;
+    color:rgb(0, 0, 162);
 }
 
-fieldset h2 {
+.sArrow:hover {
+    color: #bd30cf;
+    cursor: pointer;
+}
+
+
+article {
+    padding: 60px 20px 20px;
+    background-color: #ededed; 
+    margin-left: 10px;
+}
+
+aside {
+    flex-grow: 1;
+    flex: 0 0 15%; 
+    background-color: #ededed; 
+    padding: 20px; 
+    height: 375px;
+    margin-right: 20px;
+    order: -1;
+  }
+
+  aside fieldset {
+    border: none;
+  }
+
+aside h2, aside .form-group, aside button {
+    margin-bottom: 30px; 
+}
+
+.filter-active {
+    background-color: #f0f0f0; /* or any color to indicate the filter is active */
+}
+
+#filterButton, #clearButton {
+    margin: 10px;
+    padding: 10px;
+}
+
+label {
+    margin: 5px;
+}
+
+h2 {
     text-align: center;
+    margin: 15px;
 }
 
+.form-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
 
 .form-container {
     display: flex;
@@ -155,7 +138,107 @@ fieldset h2 {
     margin-right: 20px;
 }
 
-.form-group select {
+table {
+    width: 100%;
+    border-collapse: collapse; 
+  }
+
+  th {
+    background-color: #e3e3e3; 
+    text-align: left; 
+  }
+
+  td, th {
+    padding: 8px; 
+    border: 1px solid hsl(0, 0%, 94%); 
+  }
+
+  th, td {
+    text-align: center;
+    padding: 8px;
+  }
+
+
+#song-table {
+    width: 100%;
+}
+
+.songs-list {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.songs-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+}
+
+
+.songs-list li > span {
+    flex: 1;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.songs-list-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.songs-list-header > span {
+    flex: 1;
+    text-align: left;
+    padding: 0 10px;
+}
+
+button {
+    background-color: rgb(47, 54, 47);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 5px;
+    cursor: pointer;
+  }
+
+  #artist-label {
+    margin-right: auto;
+}
+
+#artist-select, #genre-select {
+    width: auto;
+}
+
+#artist-select,
+#genre-select {
+    width: 50%;
+    padding: 2px 6px;
+    margin: 4px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+label {
+    margin-right: 10px;
+}
+
+
+
+/* .form-group select {
     flex-grow: 1;
 }
 
@@ -175,4 +258,4 @@ fieldset h2 {
 #header-close-button, 
 #header-credits-button {
     /* float: right; */
-}
+ 
