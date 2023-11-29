@@ -1,0 +1,218 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    margin: 0;
+    padding-top: 130px;
+}
+
+.container {
+    display: flex;
+    flex-direction: row; 
+    align-items: flex-start; 
+    margin-top: 130px; 
+    margin-bottom: 100px; 
+}
+
+header{
+    position: absolute;
+    width: 100%;
+  }
+
+header {
+    top: 0;
+    background-color: rgb(47, 54, 47);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+footer {
+    background-color: rgb(47, 54, 47);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    bottom: 0;
+    width:100%;
+    position: fixed;
+}
+
+article, aside {
+    margin-top: 0px;
+    margin-bottom: 100px;
+    flex: 1;
+}
+
+.search {
+    width: 44%;
+    padding: 2px 6px;
+    margin: 4px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: text; /
+}
+
+.sArrow {
+    cursor: pointer;
+    color:rgb(0, 0, 162);
+}
+
+
+article {
+    padding: 60px 20px 20px;
+    background-color: #ededed; 
+    margin-left: 10px;
+}
+
+aside {
+    flex-grow: 1;
+    flex: 0 0 15%; 
+    background-color: #ededed; 
+    padding: 20px; 
+    height: 375px;
+    margin-right: 20px;
+    order: -1;
+  }
+
+  aside fieldset {
+    border: none;
+  }
+
+aside h2, aside .form-group, aside button {
+    /* Add margin to the bottom of each element to create space between them */
+    margin-bottom: 30px; /* Adjust this value as needed */
+}
+
+#filterButton, #clearButton {
+    margin: 10px;
+    padding: 10px;
+}
+
+label {
+    margin: 5px;
+}
+
+h2 {
+    text-align: center;
+    margin: 15px;
+}
+
+.form-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    width: 220px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 30px;
+    margin-right: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse; 
+  }
+
+  th {
+    background-color: #e3e3e3; 
+    text-align: left; 
+  }
+
+  td, th {
+    padding: 8px; 
+    border: 1px solid hsl(0, 0%, 94%); 
+  }
+
+  th, td {
+    text-align: center;
+    padding: 8px;
+  }
+  tbody {
+    background-color:rgb(255, 255, 255);
+  }
+
+#song-table {
+    width: 100%;
+}
+
+button {
+    background-color: rgb(47, 54, 47);
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 5px;
+    cursor: pointer;
+  }
+
+  #artist-label {
+    margin-right: auto;
+}
+
+#artist-select, #genre-select {
+    width: auto;
+}
+
+#artist-select,
+#genre-select {
+    width: 50%;
+    padding: 2px 6px;
+    margin: 4px;
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+label {
+    margin-right: 10px;
+}
+
+
+
+/* .form-group select {
+    flex-grow: 1;
+}
+
+.container3 {
+    width: 50%;
+    height: auto;
+    width: 50%;
+}
+
+#header-close-button, 
+#header-credits-button, 
+#tablebutton{
+    width: 100px;
+    height: 40px;
+}
+
+#header-close-button, 
+#header-credits-button {
+    /* float: right; */
+ 
