@@ -4,11 +4,11 @@
    <meta charset="utf-8">
    <title>Assignment 1</title>
    <link rel="stylesheet" href = "css/style.css">
-   <script src="js/BrowseSongs.js"></script>
-   <script src="js/assign2.js"></script>
+   <script src="js/main.js"></script>
 </head>
    
 <header>
+   <h2>Assignment 2</h2>
    </header>
 <body>
 <article>
@@ -16,11 +16,12 @@
    <h2>Search/Browse Songs</h2>
    <table id = "songs-table">
       <tr>
-         <th>Title</th>
-         <th>Artist</th>
-         <th>Year</th>
-         <th>Genre</th>
-         <th>Popularity</th>
+         <th data-column ="title">Title<span class="sArrow">&#11167;</span></th>
+         <th data-column ="artist.name">Artist<span class="sArrow" >&#11167;</span></th>
+         <th data-column ="year">Year<span class="sArrow">&#11167;</span></th>
+         <th data-column ="genre.name">Genre<span class="sArrow">&#11167;</span></th>
+         <th data-column ="details.popularity">Popularity<span class="sArrow">&#11167;</span></th>
+         <th>Add Song</th>
       </tr>
       <tbody id="songs-list"></tbody>
    </table>
@@ -32,8 +33,11 @@
          <fieldset>
          <h2>Basic Song Search</h2>   
          <div class="form-group">   
-         <input type ="radio" id="titleSearch" name="chooseSong" value = "title">
-         <label for="titleSearch" >Title</label>  <br>   
+         <input type ="radio" id="titleSearch" name="chooseSong" value="title">
+         <label for="titleSearch">Title</label><br>
+         <input type="text" class="search" placeholder="Type title" list="filterList">
+            <datalist id="filterList">
+            </datalist>   
          </div>
 
 
@@ -53,11 +57,15 @@
               </select>
             </div>
           </div>
-          
+          <button id="filterButton">Filter</button>
+          <button id="clearButton">Clear</button>
       </fieldset>
       </form>
    </div>
    </aside>
+<footer>
+   <h2>Assignment 2</h2>
+</footer>
 
 <!-- second page markup:
 
