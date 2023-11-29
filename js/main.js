@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const arrows = document.querySelectorAll('.sArrow');
         arrows.forEach(arrow => {
             arrow.addEventListener('click', function() {
-                const column = this.parentNode.dataset.column;
+                const column = this.dataset.column;
                 sortSongs(songsList, column);
                 listSongs(songsList);
 
@@ -126,11 +126,11 @@ function sortSongs(songsList, column) {
             let compareA, compareB;
 
             if(column === "artist.name") {
-                compareA = a.artist.name;
-                compareB = b.artist.name;
+                compareA = a.artist.name.toLowerCase();
+                compareB = b.artist.name.toLowerCase();;
             } else if(column === "genre.name") {
-                compareA = a.genre.name;
-                compareB = b.genre.name;
+                compareA = a.genre.name.toLowerCase();;
+                compareB = b.genre.name.toLowerCase();;
             }
 
             else if(column === "details.popularity") {
@@ -141,11 +141,21 @@ function sortSongs(songsList, column) {
             else {
                 compareA = a[column];
                 compareB = b[column];
+                if (typeof compareA === 'string') {
+                    compareA = compareA.toLowerCase();
+                    compareB = compareB.toLowerCase();
+                }
             }
     
-            if(typeof compareA === 'string' && typeof compareB === 'string') {
-                return compareA > compareB ? 1 : compareA < compareB ? -1 : 0;
-            } else if (typeof compareA === 'number' && typeof compareB === 'number') {
+            if (typeof compareA === 'string') {
+                if (compareA < compareB) {
+                    return -1;
+                }
+                if (compareA > compareB) {
+                    return 1;
+                }
+                return 0;
+            } else if (typeof compareA === 'number') {
                 return compareB - compareA;
             } else {
                 return 0;
@@ -159,14 +169,14 @@ function listSongs(songsList) {
     table.innerHTML = '';  
 
     songsList.forEach(song => {
-        const row = document.createElement("tr");
+        const row = document.createElement("li");
         row.innerHTML = `
-            <td><a href="#"${song.song_id}">${song.title}</a></td>
-            <td>${song.artist.name}</td>
-            <td>${song.year}</td>
-            <td>${song.genre.name}</td>
-            <td>${song.details.popularity}</td>
-            <td><button class="add-playlist">Add</button></td>`;
+            <span><a href="#"${song.song_id}">${song.title}</a></span>
+            <span>${song.artist.name}</span>
+            <span>${song.year}</span>
+            <span>${song.genre.name}</span>
+            <span>${song.details.popularity}</span>
+            <span><button class="add-playlist">Add</button></span>`;
         table.appendChild(row);
     });
 }
