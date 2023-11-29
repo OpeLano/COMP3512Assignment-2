@@ -14,17 +14,17 @@
 <article>
    <div class = "container1">
    <h2>Search/Browse Songs</h2>
-   <table id = "songs-table">
-      <tr>
-         <th data-column ="title">Title<span class="sArrow">&#11167;</span></th>
-         <th data-column ="artist.name">Artist<span class="sArrow" >&#11167;</span></th>
-         <th data-column ="year">Year<span class="sArrow">&#11167;</span></th>
-         <th data-column ="genre.name">Genre<span class="sArrow">&#11167;</span></th>
-         <th data-column ="details.popularity">Popularity<span class="sArrow">&#11167;</span></th>
-         <th>Add Song</th>
-      </tr>
-      <tbody id="songs-list"></tbody>
-   </table>
+   <div class="songs-list-header">
+      <span>Title<span class="sArrow" data-column="title">&#9660;</span></span>
+      <span>Artist<span class="sArrow" data-column="artist.name">&#9660;</span></span>
+      <span>Year<span class="sArrow" data-column="year">&#9660;</span></span>
+      <span>Genre<span class="sArrow" data-column="genre.name">&#9660;</span></span>
+      <span>Popularity<span class="sArrow" data-column="details.popularity">&#9660;</span></span>
+      <span>Add Song</span>
+      </div>
+      <ul id = "songs-list" class="songs-list">
+
+      </ul>
 </div>
 </article>
 <aside>
