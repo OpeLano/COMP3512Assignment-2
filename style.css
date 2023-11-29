@@ -67,6 +67,11 @@ article, aside {
     color:rgb(0, 0, 162);
 }
 
+.sArrow:hover {
+    color: #bd30cf;
+    cursor: pointer;
+}
+
 
 article {
     padding: 60px 20px 20px;
@@ -89,8 +94,11 @@ aside {
   }
 
 aside h2, aside .form-group, aside button {
-    /* Add margin to the bottom of each element to create space between them */
-    margin-bottom: 30px; /* Adjust this value as needed */
+    margin-bottom: 30px; 
+}
+
+.filter-active {
+    background-color: #f0f0f0; /* or any color to indicate the filter is active */
 }
 
 #filterButton, #clearButton {
@@ -149,12 +157,47 @@ table {
     text-align: center;
     padding: 8px;
   }
-  tbody {
-    background-color:rgb(255, 255, 255);
-  }
+
 
 #song-table {
     width: 100%;
+}
+
+.songs-list {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+    overflow-y: auto;
+    max-height: 500px;
+}
+
+.songs-list li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+}
+
+
+.songs-list li > span {
+    flex: 1;
+    text-align: left;
+    padding: 0 10px;
+}
+
+.songs-list-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 0;
+}
+
+.songs-list-header > span {
+    flex: 1;
+    text-align: left;
+    padding: 0 10px;
 }
 
 button {
