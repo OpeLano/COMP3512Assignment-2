@@ -247,6 +247,8 @@ section {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+    margin: 20px;
+    padding: 20px;
 }
 
 .container3 {
@@ -258,7 +260,7 @@ section {
     padding: 10px;
     text-align:center;
 }
-.container3 li, p{
+.container3 li{
     padding: 20px;
     margin: 10px;
     font-size: 20px;
@@ -275,7 +277,13 @@ ul {
     padding: 10px;
     font-size: 30px;
     text-align: center;
+    height: 40%;
 }
+
+#radarChart {
+    width: 500px;
+    height: 300px;
+  }
 
 
 
