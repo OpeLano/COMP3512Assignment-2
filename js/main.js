@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     console.log("DOM fully loaded and parsed");
@@ -93,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
 });
 
 function sortSongs(songsList, column) {
@@ -148,10 +148,7 @@ function listSongs(songsList) {
 
         // Title
         const titleSpan = document.createElement("span");
-        const titleLink = document.createElement("a");
-        titleLink.href = "#"; 
-        titleLink.textContent = song.title; 
-        titleSpan.appendChild(titleLink);
+        titleSpan.textContent = song.title; 
         row.appendChild(titleSpan);
 
         // Artist
@@ -182,8 +179,94 @@ function listSongs(songsList) {
         buttonSpan.appendChild(addButton);
         row.appendChild(buttonSpan);
 
+        row.addEventListener('click', () => singleSongInfo(song));
+
         table.appendChild(row);
     });
+}
+let currentChart = null;
+function singleSongInfo(song) {
+    const singleSongInfo = document.querySelector('.single-song-info');
+    const analysisSongInfo = document.querySelector('.analysis-song-info');
+
+    singleSongInfo.textContent = '';
+    analysisSongInfo.textContent = '';
+
+    singleSongInfo.appendChild(createListItem(`Title: ${song.title}`));
+    singleSongInfo.appendChild(createListItem(`Artist: ${song.artist.name}`));
+    singleSongInfo.appendChild(createListItem(`Genre: ${song.genre.name}`));
+    singleSongInfo.appendChild(createListItem(`Year: ${song.year}`));
+    singleSongInfo.appendChild(createListItem(`Duration: ${song.details.duration}`));
+    
+    analysisSongInfo.appendChild(createListItem(`BPM: ${song.details.bpm}`));
+    analysisSongInfo.appendChild(createListItem(`Energy: ${song.analytics.energy}`));
+    analysisSongInfo.appendChild(createListItem(`danceability: ${song.analytics.danceability}`));
+    analysisSongInfo.appendChild(createListItem(`liveness: ${song.analytics.liveness}`));
+    analysisSongInfo.appendChild(createListItem(`valence: ${song.analytics.valence}`));
+    analysisSongInfo.appendChild(createListItem(`acoustincess: ${song.analytics.acousticness}`));
+    analysisSongInfo.appendChild(createListItem(`speechiness: ${song.analytics.speechiness}`));
+    analysisSongInfo.appendChild(createListItem(`popularity: ${song.details.popularity}`));
+
+    const canvas = document.querySelector('#radarChart');
+    // If there's a chart already drawn, destroy it
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    // Prepare the data for the radar chart
+    const radarChartData = {
+        labels: ['BPM', 'Energy', 'Danceability', 'Liveness', 'Valence', 'Acousticness', 'Speechiness', 'Popularity'],
+        datasets: [{
+            label: song.title,
+            data: [
+                song.details.bpm,
+                song.analytics.energy,
+                song.analytics.danceability,
+                song.analytics.liveness,
+                song.analytics.valence,
+                song.analytics.acousticness,
+                song.analytics.speechiness,
+                song.details.popularity
+            ],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+        }]
+    };
+
+    // Get the context of the canvas element
+    const ctx = canvas.getContext('2d');
+    // Create a new chart instance
+    currentChart = new Chart(ctx, {
+        type: 'radar',
+        data: radarChartData,
+        options: {
+            elements: {
+                line: {
+                    borderWidth: 3
+                }
+            },
+            scales: {
+                r: {
+                    angleLines: {
+                        display: true
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+}
+
+function createListItem(text) {
+    const listItem = document.createElement('li');
+    listItem.textContent = text;
+    return listItem;
 }
 
 function selectOptions(selectID, data) {
