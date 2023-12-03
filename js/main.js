@@ -49,31 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
     })
     .catch(error => console.error('Error here', error));
 
-    //come back later
-    // const searchBox = document.querySelector('.search');
-    // const suggestions = document.querySelector('#filterList');
-    // searchBox.addEventListener('input', displayMatches);
-
-    // function displayMatches() {
-    //     if(this.value >= 2) {
-    //         const matches = findMatches(this.value, songsList);
-    //         suggestions.innerHTML = '';
-
-    //         matches.forEach(song => {
-    //             let option = document.createElement('option');
-    //             option.textContent = song.title;
-    //             suggestions.appendChild(option);
-    //         });
-    //     }
-    // }
-
-    // function findMatches(wordToMatch, songsList) {
-    //     return songsList.filter(song => {
-    //         const regex = new RegExp(wordToMatch, 'gi');
-    //         return song.title.match(regex);
-    //     });
-    // }
-
     document.querySelector('#filterButton').addEventListener('click', function (e) {
         e.preventDefault();
         const selectedFilter = document.querySelector('input[name="chooseSong"]:checked').value;
@@ -89,21 +64,21 @@ document.addEventListener("DOMContentLoaded", function () {
     
     function filterList(column) {
         let filterSongs;
-
+    
         if(column === 'title') {
             const searchBox = document.querySelector('.search').value.toLowerCase();
-            filterSongs = songsList.filter(song => song.title.toLowerCase() === searchBox);
-    }  else if (column === 'artist') {
-        const selectArtist = document.querySelector('#artist-select').value;
-        filterSongs = songsList.filter(song => String(song.artist.id) === selectArtist);
-    } else if (column === 'genre') {
-        const selectGenre = document.querySelector('#genre-select').value;
-        filterSongs = songsList.filter(song => String(song.genre.id) === selectGenre);
-    } else {
-        filterSongs = songsList;
-    }
-
-    listSongs(filterSongs);
+            filterSongs = songsList.filter(song => song.title.toLowerCase().includes(searchBox));
+        }  else if (column === 'artist') {
+            const selectArtist = document.querySelector('#artist-select').value;
+            filterSongs = songsList.filter(song => String(song.artist.id) === selectArtist);
+        } else if (column === 'genre') {
+            const selectGenre = document.querySelector('#genre-select').value;
+            filterSongs = songsList.filter(song => String(song.genre.id) === selectGenre);
+        } else {
+            filterSongs = songsList;
+        }
+    
+        listSongs(filterSongs);
     }
 
     function sortList(songsList) {
@@ -166,17 +141,47 @@ function sortSongs(songsList, column) {
 
 function listSongs(songsList) {
     const table = document.querySelector("#songs-list");
-    table.innerHTML = '';  
+    table.textContent = '';  
 
     songsList.forEach(song => {
         const row = document.createElement("li");
-        row.innerHTML = `
-            <span><a href="#"${song.song_id}">${song.title}</a></span>
-            <span>${song.artist.name}</span>
-            <span>${song.year}</span>
-            <span>${song.genre.name}</span>
-            <span>${song.details.popularity}</span>
-            <span><button class="add-playlist">Add</button></span>`;
+
+        // Title
+        const titleSpan = document.createElement("span");
+        const titleLink = document.createElement("a");
+        titleLink.href = "#"; 
+        titleLink.textContent = song.title; 
+        titleSpan.appendChild(titleLink);
+        row.appendChild(titleSpan);
+
+        // Artist
+        const artistSpan = document.createElement("span");
+        artistSpan.textContent = song.artist.name;
+        row.appendChild(artistSpan);
+
+        // Year
+        const yearSpan = document.createElement("span");
+        yearSpan.textContent = song.year;
+        row.appendChild(yearSpan);
+
+        // Genre
+        const genreSpan = document.createElement("span");
+        genreSpan.textContent = song.genre.name;
+        row.appendChild(genreSpan);
+
+        // Popularity
+        const popularitySpan = document.createElement("span");
+        popularitySpan.textContent = song.details.popularity;
+        row.appendChild(popularitySpan);
+
+        // Add button
+        const buttonSpan = document.createElement("span");
+        const addButton = document.createElement("button");
+        addButton.textContent = "Add";
+        addButton.className = "add-playlist";
+        buttonSpan.appendChild(addButton);
+        row.appendChild(buttonSpan);
+
         table.appendChild(row);
     });
 }
