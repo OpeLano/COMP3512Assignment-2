@@ -5,22 +5,17 @@
     box-sizing: border-box;
 }
 
-
 body {
-    display: flex;
     min-height: 100vh;
-    flex-direction: row;
+    flex-direction: column;
     margin: 0;
     padding-top: 130px;
 }
 
-.container {
+.search-page {
     display: flex;
-    flex-direction: row; 
-    align-items: flex-start; 
-    margin-top: 130px; 
-    margin-bottom: 100px; 
 }
+
 
 header{
     position: absolute;
@@ -49,6 +44,13 @@ article, aside {
     margin-top: 0px;
     margin-bottom: 100px;
     flex: 1;
+}
+
+article, aside, section {
+    /* Removed flex: 1 from article and aside to not force them into row layout */
+    margin-top: 0px;
+    margin-bottom: 100px;
+    width: 100%; /* Set a width to fill the container */
 }
 
 .search {
@@ -234,6 +236,45 @@ button {
 
 label {
     margin-right: 10px;
+}
+
+
+section {
+    width: 100%;
+}
+
+.song-information {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.container3 {
+    flex: 1;
+    background-color: #ededed; 
+    width: 40%;
+    font-size: 30px;
+    margin: 15px;
+    padding: 10px;
+    text-align:center;
+}
+.container3 li, p{
+    padding: 20px;
+    margin: 10px;
+    font-size: 20px;
+}
+
+ul {
+    list-style-type:none;
+}
+
+.container4{
+    flex: 2;
+    background-color: #ededed; 
+    margin: 15px;
+    padding: 10px;
+    font-size: 30px;
+    text-align: center;
 }
 
 
