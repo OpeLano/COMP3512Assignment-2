@@ -5,6 +5,8 @@
    <title>Assignment 1</title>
    <link rel="stylesheet" href = "css/style.css">
    <script src="js/main.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
    
 <header>
@@ -23,7 +25,7 @@
       <span>Popularity<span class="sArrow" data-column="details.popularity">&#9660;</span></span>
       <span>Add Song</span>
       </div>
-      <ul id = "songs-list" class="songs-list">
+      <ul id ="songs-list" class="songs-list">
 
       </ul>
    </div>
@@ -69,27 +71,17 @@
    <div class = "song-information">
     <div class ="container3">
    <h3>Song Information</h3>
-   <p><strong>Title:</strong> [Title Here]</p>
-   <p><strong>Artist Name:</strong> [Artist Here]</p>
-   <p><strong>Artist Type:</strong> [Artist Type]</p>
-   <p><strong>Genre:</strong> [Genre Here]</p>
-   <p><strong>Year:</strong> [Duration Here]</p>
-   <p><strong>Duration:</strong> [Duration Here]</p>
+      <ul class = "single-song-info">
 
+      </ul>
    <h3>Analysis Data</h3>
-   <ul>
-     <li><strong>BPM:</strong> [BPM Here]</li>
-     <li><strong>Energy:</strong> [Energy Here]</li>
-     <li><strong>Danceability:</strong> [Energy Here]</li>
-     <li><strong>Liveness:</strong> [Liveness Here]</li>
-     <li><strong>Valence:</strong> [Valence Here]</li>
-     <li><strong>Acousticness:</strong> [Acousticness Here]</li>
-     <li><strong>Speechiness:</strong> [Speechiness Here]</li>
-     <li><strong>Popularity:</strong> [Popularity Here]</li>
+   <ul class = "analysis-song-info">
+
    </ul>
 </div>
 <div class ="container4">
    <h3>Radar Chart</h3>
+   <canvas id="radarChart"></canvas>
 </div>
 </div>
 </section>
