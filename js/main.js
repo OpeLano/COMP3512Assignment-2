@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     /* url of song api --- https versions hopefully a little later this semester */	
-    const api = 'http://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
+    const api = 'https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
     const artist = JSON.parse(content1);
     const genres = JSON.parse(content2);
 
