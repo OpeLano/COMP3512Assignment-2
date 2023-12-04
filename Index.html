@@ -11,8 +11,15 @@
    
 <header>
    <h2>Assignment 2</h2>
-   <button  id = "header-close-button" type = "button">Playlist</button>
-   <button id = "header-credits-button" type = "button">Credits</button>
+   <div class="parent-button">
+         <div class = "hide-playlist-button">
+            <button id="playlist-button" type="button">Playlist</button>
+         </div>
+         <button id="credit-button" type="button">Credits</button>
+      <div class="hide-button" hidden>
+        <button id="close-view-button" type="button">Close View</button>
+      </div>
+    </div>
    </header>
 <body>
    <div class ="search-page">
@@ -69,7 +76,7 @@
    </div>
    </aside>
 </div>
-   <section>
+   <section class = "song-display" hidden>
    <div class = "song-information">
     <div class ="container3">
    <h3>Song Information</h3>
@@ -105,11 +112,10 @@
 </header> -->
 
 
-
-<h1>Playlist Details</h1>
+<div class = "playlist-page" hidden>
       <article>
-         <div class = "container1">
-         <h2>Search/Browse Songs</h2>
+         <div class = "container6">
+         <h2>Playlist Details</h2>
          <div class="songs-list-header">
             <span>Title<span class="sArrow" data-column="title">&#9660;</span></span>
             <span>Artist<span class="sArrow" data-column="artist.name">&#9660;</span></span>
@@ -123,8 +129,7 @@
             </ul>
          </div>
       </article>
-   
-
+   </div>
 <script src="js/genres.json"></script>
 <script src="js/artists.json"></script>
 <script src="js/sample-songs.json"></script>
