@@ -1,6 +1,49 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
+    const searchPage = document.querySelector('.search-page');
+    const songDisplayPage = document.querySelector('.song-display');
+    const closeButton = document.querySelector('#close-view-button');
+    const hideButton = document.querySelector('.hide-button');
+    const playlistButton = document.querySelector('#playlist-button');
+    const playlistPage = document.querySelector('.playlist-page');
+    const hideplayListButton = document.querySelector('.hide-playlist-button');
+    const songsListHeader = document.querySelector('.songs-list');
+
+    function showPage(elements, visible) {
+        elements.forEach(element => {
+            if (visible) {
+                element.style.display = ''; 
+                element.hidden = false;
+            } else {
+                element.style.display = 'none';
+                element.hidden = true;
+            }
+        });
+    }
+
+    closeButton.addEventListener('click', function () {
+        showPage([searchPage], true); 
+        showPage([songDisplayPage, playlistPage], false); 
+        showPage([hideButton], false); 
+        showPage([hideplayListButton], true); 
+    });
+    
+    songsListHeader.addEventListener('click', function (e) {
+        if (e.target.tagName === 'SPAN') {
+            showPage([searchPage, playlistPage], false); 
+            showPage([songDisplayPage], true); 
+            showPage([hideButton], true); 
+            showPage([hideplayListButton], false); 
+        }
+    });
+    
+    playlistButton.addEventListener('click', function () {
+        showPage([searchPage, songDisplayPage], false); 
+        showPage([playlistPage, hideButton], true); 
+        showPage([hideplayListButton], false); 
+    });
+
     console.log("DOM fully loaded and parsed");
 
     document.querySelectorAll('input[type=radio][name="chooseSong"]').forEach(function(radio) {
@@ -93,6 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
+
 
 });
 
@@ -279,22 +323,6 @@ function selectOptions(selectID, data) {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-
-    const searchPage = document.querySelector('.search-page');
-
-    function hideSearchPage() {
-        searchPage.style.display = 'none';
-    }
-
-    const songsListHeader = document.querySelector('.songs-list');
-    songsListHeader.addEventListener('click', function (event) {
-        if (event.target.tagName === 'SPAN') {
-            hideSearchPage();
-        }
-    });
-});  
-   
 
 
     
