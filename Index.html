@@ -11,6 +11,8 @@
    
 <header>
    <h2>Assignment 2</h2>
+   <button  id = "header-close-button" type = "button">Playlist</button>
+   <button id = "header-credits-button" type = "button">Credits</button>
    </header>
 <body>
    <div class ="search-page">
@@ -104,24 +106,24 @@
 
 
 
-<!-- <h1>Playlist Details</h1>
-   <button id = "tablebutton" type = "button">Clear Playlist</button>
-
-
-
-   <div class ="container3">
-      <table id = song-info-table3>
-         <tr>
-            <th id = song-info-text>Title</th>
-            <th id = song-info-text>Artist</th>
-            <th id = song-info-text>Year</th>
-            <th id = song-info-text>Genre</th>
-            <th id = song-info-text>Type</th>
-            <th id = song-info-text>Popularity</th>
-            <td><button id = "tablebutton" type = "button">Remove</button></td>
-         </tr>
-      </table>
-   </div> -->
+<h1>Playlist Details</h1>
+      <article>
+         <div class = "container1">
+         <h2>Search/Browse Songs</h2>
+         <div class="songs-list-header">
+            <span>Title<span class="sArrow" data-column="title">&#9660;</span></span>
+            <span>Artist<span class="sArrow" data-column="artist.name">&#9660;</span></span>
+            <span>Year<span class="sArrow" data-column="year">&#9660;</span></span>
+            <span>Genre<span class="sArrow" data-column="genre.name">&#9660;</span></span>
+            <span>Popularity<span class="sArrow" data-column="details.popularity">&#9660;</span></span>
+            <span></span>
+            </div>
+            <ul id ="songs-list" class="songs-list">
+      
+            </ul>
+         </div>
+      </article>
+   
 
 <script src="js/genres.json"></script>
 <script src="js/artists.json"></script>

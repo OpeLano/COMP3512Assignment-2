@@ -289,22 +289,23 @@ ul {
 
 /* .form-group select {
     flex-grow: 1;
-}
+} */
 
-.container3 {
+/* .container3 {
     width: 50%;
     height: auto;
     width: 50%;
-}
+} */
 
 #header-close-button, 
 #header-credits-button, 
 #tablebutton{
-    width: 100px;
-    height: 40px;
+    width: auto;
+    height: auto;
 }
 
 #header-close-button, 
 #header-credits-button {
-    /* float: right; */
+
+}
  

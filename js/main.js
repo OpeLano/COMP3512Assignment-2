@@ -279,7 +279,21 @@ function selectOptions(selectID, data) {
     });
 }
 
-   
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchPage = document.querySelector('.search-page');
+
+    function hideSearchPage() {
+        searchPage.style.display = 'none';
+    }
+
+    const songsListHeader = document.querySelector('.songs-list');
+    songsListHeader.addEventListener('click', function (event) {
+        if (event.target.tagName === 'SPAN') {
+            hideSearchPage();
+        }
+    });
+});  
    
 
 
