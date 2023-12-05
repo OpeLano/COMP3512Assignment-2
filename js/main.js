@@ -82,16 +82,34 @@ document.addEventListener("DOMContentLoaded", function () {
     selectOptions('#artist-select', artist);
     selectOptions('#genre-select', genres);
 
-    const songsList = [];
+    let songsList = [];
+    const songKey = 'songsKey';
 
-    fetch(api)
-    .then(response => response.json())
-    .then(songs => {
-        songsList.push(...songs);
-        listSongs(songsList);
-        sortList(songsList);
-    })
-    .catch(error => console.error('Error here', error));
+    function fetchSongs() {
+        fetch(api)
+        .then(response => response.json())
+        .then(songs => {
+            console.log('Fetched Songs:', songs); 
+            songsList = songs;
+            localStorage.setItem(songKey, JSON.stringify(songsList));
+            displaySongs(songsList);
+        })
+        .catch(error => {
+            console.error('Error fetching songs', error);
+        });
+    }
+
+    function displaySongs(songs){
+        console.log('Displaying Songs:', songs); 
+        sortList(songs);
+    }
+
+    if(localStorage.getItem(songKey)) {
+        songsList = JSON.parse(localStorage.getItem(songKey));
+        displaySongs(songsList);
+    } else {
+        fetchSongs();
+    }
 
     document.querySelector('#filterButton').addEventListener('click', function (e) {
         e.preventDefault();
@@ -100,8 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    document.querySelector('.clearButton').addEventListener('click', function(e) {
-        e.preventDefault();
+    document.querySelector('#clearButton').addEventListener('click', function() {
         listSongs(songsList);
     });
 
