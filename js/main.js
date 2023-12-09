@@ -94,6 +94,8 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Fetched Songs:', songs); 
             songsList = songs;
             localStorage.setItem(songKey, JSON.stringify(songsList));
+            sortList(songsList);
+            listSongs(songsList);
         })
         .catch(error => {
             console.error('Error fetching songs', error);
@@ -103,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function displaySongs(songs){
         console.log('Displaying Songs:', songs); 
         listSongs(songs);
+        sortList(songs);
     }
 
     //localStorage 
@@ -114,111 +117,109 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchSongs();
     }
 
+    displayPlayList();
+
+    function loadSongs() {
+        const savedPlaylist = localStorage.getItem('playlist');
+        return savedPlaylist ? JSON.parse(savedPlaylist) : [];
+    }
+
+    function displayPlayList() {
+        const playlistElement = document.querySelector('.playlist-page #playlist-list');
+        playlistElement.textContent = ''; // Clears the existing playlist
+    
+        let playlistData = loadSongs();
+        for (const song of playlistData) {
+            const playlistRow = document.createElement('li');
+    
+            // Assuming you want to display the title, artist, and other details in the playlist
+            playlistRow.innerHTML = `
+                <span>${song.title}</span>
+                <span>${song.artist}</span>
+                <span>${song.year}</span>
+                <span>${song.genre}</span>
+                <span>${song.popularity}</span>
+            `;
+    
+            // Optionally, you can add a remove button to each song in the playlist
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.className = 'remove-playlist';
+            removeButton.addEventListener('click', function() {
+                // Logic to remove the song from playlistData and update local storage
+
+                playlistData = playlistData.filter(pSong => pSong.title !== song.title);
+
+            // Save the updated playlist
+            saveSong(playlistData);
+
+            // Re-display the updated playlist
+            displayPlayList();
+            });
+            playlistRow.appendChild(removeButton);
+    
+            playlistElement.appendChild(playlistRow); // Adds the new row to the playlist
+        }
+    }
+
+    function saveSong(playlist) {
+        localStorage.setItem('playlist', JSON.stringify(playlist));
+    }
+
+    function createSpanElement(content) {
+        const span = document.createElement("span");
+        span.textContent = content;
+        return span;
+    }
+    
+    function addToPlaylist(song, playlistData) {
+        if (!playlistData.some(pSong => pSong.title === song.title && pSong.artist === song.artist.name)) {
+            playlistData.push({
+                title: song.title,
+                artist: song.artist.name,
+                year: song.year,
+                genre: song.genre.name,
+                popularity: song.details.popularity
+            });
+            saveSong(playlistData);
+            displayPlayList();
+        } else {
+            console.log("Song already in the playlist");
+        }
+    }
 
     function listSongs(songsList) {
         const table = document.querySelector("#songs-list");
-        table.textContent = '';  
+        table.textContent = '';
     
         songsList.forEach(song => {
             const row = document.createElement("li");
+            row.appendChild(createSpanElement(song.title));
+            row.appendChild(createSpanElement(song.artist.name));
+            row.appendChild(createSpanElement(song.year));
+            row.appendChild(createSpanElement(song.genre.name));
+            row.appendChild(createSpanElement(song.details.popularity));
     
-            // Title
-            const titleSpan = document.createElement("span");
-            titleSpan.textContent = song.title; 
-            row.appendChild(titleSpan);
-    
-            // Artist
-            const artistSpan = document.createElement("span");
-            artistSpan.textContent = song.artist.name;
-            row.appendChild(artistSpan);
-    
-            // Year
-            const yearSpan = document.createElement("span");
-            yearSpan.textContent = song.year;
-            row.appendChild(yearSpan);
-    
-            // Genre
-            const genreSpan = document.createElement("span");
-            genreSpan.textContent = song.genre.name;
-            row.appendChild(genreSpan);
-    
-            // Popularity
-            const popularitySpan = document.createElement("span");
-            popularitySpan.textContent = song.details.popularity;
-            row.appendChild(popularitySpan);
-    
-            // Add button
-            const buttonSpan = document.createElement("span");
             const addButton = document.createElement("button");
             addButton.textContent = "Add";
             addButton.className = "add-playlist";
+            addButton.addEventListener('click', function(event) {
+            event.stopPropagation(); 
+            let playlistData = loadSongs();
+            addToPlaylist(song, playlistData);
+            });
+
+            const buttonSpan = document.createElement("span");
             buttonSpan.appendChild(addButton);
             row.appendChild(buttonSpan);
 
-
-            
-
-            addButton.addEventListener('click', function(e) {
-
-                const playlistRow = document.createElement('li');
-
-               const titleSpan = document.createElement('span');
-                titleSpan.textContent = song.title;
-                playlistRow.appendChild(titleSpan);
-
-                const artistSpan = document.createElement('span');
-                artistSpan.textContent = song.artist.name;
-                playlistRow.appendChild(artistSpan);
-
-                const yearSpan = document.createElement('span');
-                yearSpan.textContent = song.year;
-                playlistRow.appendChild(yearSpan);
-
-                const genreSpan = document.createElement('span');
-                genreSpan.textContent = song.genre.name;
-                playlistRow.appendChild(genreSpan);
-
-                const popularitySpan = document.createElement('span');
-                popularitySpan.textContent = song.details.popularity;
-                playlistRow.appendChild(popularitySpan);
-
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = 'Remove';
-                deleteButton.className = 'remove-playlist';
-                deleteButton.addEventListener('click', function() {
-                    playlistRow.remove();
-
-                });
-                playlistRow.appendChild(deleteButton);
-
-                const playlist = document.querySelector('.playlist-page .songs-list');
-                playlist.appendChild(playlistRow);
-
-                // Switch to the playlist view after adding the song
-                const searchPage = document.querySelector('.search-page');
-                const playlistPage = document.querySelector('.playlist-page');
-                const hideButton = document.querySelector('.hide-button');
-                const hideplayListButton = document.querySelector('.hide-playlist-button');
-
-                // Show the playlist view and hide other elements
-                showPage([searchPage], false);
-                showPage([playlistPage], true);
-                showPage([hideButton], true);
-                showPage([hideplayListButton], false);
-            });
-
-           
-        
-
-            
-    
             row.addEventListener('click', () => singleSongInfo(song));
 
-            
-    
             table.appendChild(row);
-        });
+    });
     }
+
+
     document.querySelector('#filterButton').addEventListener('click', function (e) {
         e.preventDefault();
         const selectedFilter = document.querySelector('input[name="chooseSong"]:checked').value;
@@ -226,10 +227,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-    // document.querySelector('#clearButton').addEventListener('click', function(e) {
-    //     listSongs(songsList);
-    //     e.preventDefault();
-    // });
+     document.querySelector('#clearButton').addEventListener('click', function(e) {
+         listSongs(songsList);
+         inputs.forEach(input => {
+            input.disabled = false;
+         });
+         e.preventDefault();
+     });
 
 
     
@@ -263,7 +267,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-
 
 });
 
