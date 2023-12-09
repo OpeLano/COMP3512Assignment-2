@@ -350,5 +350,11 @@ button {
 
 #snackbar {
     display: none;
+    position:fixed;
+    top: 10px;
+    left: 45%;
+    background-color: rgb(47, 54, 47);
+    color: #fff;
+    padding: 16px;
   }
  

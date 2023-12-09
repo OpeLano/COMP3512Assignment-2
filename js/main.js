@@ -270,6 +270,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    function showSnackbar() {
+        const snackbar = document.querySelector("#snackbar");
+        snackbar.style.display = "block";
+        snackbar.textContent = "Song was added";
+        setTimeout(() => {
+          snackbar.style.display = "none";
+        }, 3000);
+      }
+
 });
 
 function sortSongs(songsList, column) {
@@ -408,11 +417,3 @@ function selectOptions(selectID, data) {
         select.appendChild(option);
     });
 }
- 
-function showSnackbar() {
-    const snackbar = document.querySelector("#snackbar");
-    snackbar.style.display = "block"; 
-    setTimeout(() => {
-      snackbar.style.display = "none";
-    }, 3000);
-  }
