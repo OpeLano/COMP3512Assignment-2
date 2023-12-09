@@ -347,4 +347,8 @@ button {
     margin: 0; /* Adjust or remove if necessary */
     padding: 10px 15px; /* Adjust padding to match other buttons if necessary */
 }
+
+#snackbar {
+    display: none;
+  }
  

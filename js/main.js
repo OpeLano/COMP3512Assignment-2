@@ -207,6 +207,8 @@ document.addEventListener("DOMContentLoaded", function () {
             event.stopPropagation(); 
             let playlistData = loadSongs();
             addToPlaylist(song, playlistData);
+
+            showSnackbar();
             });
 
             const buttonSpan = document.createElement("span");
@@ -407,3 +409,10 @@ function selectOptions(selectID, data) {
     });
 }
  
+function showSnackbar() {
+    const snackbar = document.querySelector("#snackbar");
+    snackbar.style.display = "block"; 
+    setTimeout(() => {
+      snackbar.style.display = "none";
+    }, 3000);
+  }
