@@ -154,13 +154,71 @@ document.addEventListener("DOMContentLoaded", function () {
             addButton.className = "add-playlist";
             buttonSpan.appendChild(addButton);
             row.appendChild(buttonSpan);
+
+
+            
+
+            addButton.addEventListener('click', function(e) {
+
+                const playlistRow = document.createElement('li');
+
+               const titleSpan = document.createElement('span');
+                titleSpan.textContent = song.title;
+                playlistRow.appendChild(titleSpan);
+
+                const artistSpan = document.createElement('span');
+                artistSpan.textContent = song.artist.name;
+                playlistRow.appendChild(artistSpan);
+
+                const yearSpan = document.createElement('span');
+                yearSpan.textContent = song.year;
+                playlistRow.appendChild(yearSpan);
+
+                const genreSpan = document.createElement('span');
+                genreSpan.textContent = song.genre.name;
+                playlistRow.appendChild(genreSpan);
+
+                const popularitySpan = document.createElement('span');
+                popularitySpan.textContent = song.details.popularity;
+                playlistRow.appendChild(popularitySpan);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Remove';
+                deleteButton.className = 'remove-playlist';
+                deleteButton.addEventListener('click', function() {
+                    playlistRow.remove();
+
+                });
+                playlistRow.appendChild(deleteButton);
+
+                const playlist = document.querySelector('.playlist-page .songs-list');
+                playlist.appendChild(playlistRow);
+
+                // Switch to the playlist view after adding the song
+                const searchPage = document.querySelector('.search-page');
+                const playlistPage = document.querySelector('.playlist-page');
+                const hideButton = document.querySelector('.hide-button');
+                const hideplayListButton = document.querySelector('.hide-playlist-button');
+
+                // Show the playlist view and hide other elements
+                showPage([searchPage], false);
+                showPage([playlistPage], true);
+                showPage([hideButton], true);
+                showPage([hideplayListButton], false);
+            });
+
+           
+        
+
+            
     
             row.addEventListener('click', () => singleSongInfo(song));
+
+            
     
             table.appendChild(row);
         });
     }
-
     document.querySelector('#filterButton').addEventListener('click', function (e) {
         e.preventDefault();
         const selectedFilter = document.querySelector('input[name="chooseSong"]:checked').value;
@@ -172,6 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //     listSongs(songsList);
     //     e.preventDefault();
     // });
+
 
     
     function filterList(column) {
@@ -344,7 +403,4 @@ function selectOptions(selectID, data) {
         select.appendChild(option);
     });
 }
-
-
-
-    
+ 
