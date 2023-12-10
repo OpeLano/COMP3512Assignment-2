@@ -49,13 +49,25 @@ document.addEventListener("DOMContentLoaded", function () {
         showPage([hideplayListButton], false); 
     });
 
+    /*When moving mouse to credit button, it will display our names and GitHub link */
+    const creditsButton = document.querySelector('#credit-button');
+    const creditsPopup = document.querySelector('#credits-popup');
+  
+    creditsButton.addEventListener('mouseover', function () {
+      creditsPopup.style.display = 'block';
+  
+      setTimeout(() => {
+          creditsPopup.style.display = 'none';
+      }, 5000); 
+  });
+
     /*This is for disabling other radio button and its input/select when a radio button 
     is clicked and will change the opacity of a unclicked radio button and its input/select*/
     document.querySelectorAll('input[type=radio][name="chooseSong"]').forEach(function(radio) {
         radio.addEventListener('change', function() {
             document.querySelectorAll('.form-group').forEach(function(e) {
                 if (!e.contains(radio)) {
-                    group.style.opacity = '0.5';
+                    e.style.opacity = '0.5';
                     let inputs = e.querySelectorAll('input, select');
                     inputs.forEach(input => {
                         input.disabled = true;
@@ -130,8 +142,8 @@ document.addEventListener("DOMContentLoaded", function () {
     //This function is used to display the content of the playlist page when song is added, and invoking it above
     function displayPlayList() {
         //displaying the songs li on the playlist-list ul on the markup
-        const playlistElement = document.querySelector('.playlist-page #playlist-list');
-        playlistElement.textContent = ''; 
+        const playlistSongsList = document.querySelector('.playlist-page #playlist-list');
+        playlistSongsList.textContent = ''; 
     
         /*Used to store the current list of songs in the playlist retrieved from localStorage
         and make a row for each of the song for each of the song*/
@@ -159,8 +171,16 @@ document.addEventListener("DOMContentLoaded", function () {
             displayPlayList();
             });
 
+            //Remove all songs button to wipe everything in the list
+            const removeSongsButton = document.querySelector('#clear-songs');
+            removeSongsButton.addEventListener('click', function () {
+                localStorage.removeItem('playlist');
+                playlistSongsList.textContent = '';
+                displayPlayList();
+            });
+
             playlistRow.appendChild(removeButton);
-            playlistElement.appendChild(playlistRow);
+            playlistSongsList.appendChild(playlistRow);
         }
     }
 
@@ -437,6 +457,7 @@ function selectOptions(selectID, data) {
     });
 }
 
+/*snackBar for when adding a page or hovering over the credit button*/ 
 function showSnackbar(message) {
     const snackbar = document.querySelector("#snackbar");
     snackbar.style.display = "block";
@@ -448,16 +469,4 @@ function showSnackbar(message) {
     }, 3000);
   }
 
-  const creditsButton = document.querySelector('#credit-button');
-  const creditsPopup = document.querySelector('#credits-popup');
-
-   creditsButton.addEventListener('mouseover', function () {
-   creditsPopup.style.display = 'block';
-
-   setTimeout(() => {
-    // creditsPopup.textContent = "Credit";
-    console.log("Timeout function");
-   creditsPopup.style.display = 'none';
-   }, 5000);
-});
  
