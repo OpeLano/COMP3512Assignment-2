@@ -418,7 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
     singleSongInfo.appendChild(createListItem(`Artist: ${song.artist.name}`));
     singleSongInfo.appendChild(createListItem(`Genre: ${song.genre.name}`));
     singleSongInfo.appendChild(createListItem(`Year: ${song.year}`));
-    singleSongInfo.appendChild(createListItem(`Duration: ${song.details.duration}`));
+    singleSongInfo.appendChild(createListItem(`Duration: ${formatDuration(song.details.duration)}`));
     
     analysisSongInfo.appendChild(createListItem(`BPM: ${song.details.bpm}`));
     analysisSongInfo.appendChild(createListItem(`Energy: ${song.analytics.energy}`));
@@ -480,8 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     });
-
-}
+    }
 /*create the list on the single song information page*/
 function createListItem(text) {
     const listItem = document.createElement('li');
@@ -511,5 +510,18 @@ function showSnackbar(message) {
       snackbar.style.display = "none";
     }, 3000);
   }
+
+  // function to converting duration seconds to minutes
+  function formatDuration(durationInSeconds) {
+    const minutes = parseInt(durationInSeconds / 60);
+    const seconds = durationInSeconds % 60;
+
+    // Pad single-digit seconds with a leading zero
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : seconds;
+
+    return `${minutes}:${formattedSeconds}`;
+}
+
+  
 
  
