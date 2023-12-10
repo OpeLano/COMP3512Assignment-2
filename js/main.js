@@ -1,6 +1,6 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
+    //variables to select the id or class of a specific button or markup of a page
     const searchPage = document.querySelector('.search-page');
     const songDisplayPage = document.querySelector('.song-display');
     const closeButton = document.querySelector('#close-view-button');
@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const hideplayListButton = document.querySelector('.hide-playlist-button');
     const songsListHeader = document.querySelector('.songs-list');
 
+
+    //functions to the hide and show a specific page 
     function showPage(elements, visible) {
         elements.forEach(element => {
             if (visible) {
@@ -22,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    //when clicking on the close button, it will display back to the search/browse page.
     closeButton.addEventListener('click', function () {
         showPage([searchPage], true); 
         showPage([songDisplayPage, playlistPage], false); 
@@ -29,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showPage([hideplayListButton], true); 
     });
     
+    //when clicking on a song in the search/browse page, it will show the single song page with the song specific. 
     songsListHeader.addEventListener('click', function (e) {
         if (e.target.tagName === 'SPAN') {
             showPage([searchPage, playlistPage], false); 
@@ -38,52 +42,49 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
     
+    //when clicking on playlist button, it will show the playlist page. 
     playlistButton.addEventListener('click', function () {
         showPage([searchPage, songDisplayPage], false); 
         showPage([playlistPage, hideButton], true); 
         showPage([hideplayListButton], false); 
     });
 
-    console.log("DOM fully loaded and parsed");
-
+    /*This is for disabling other radio button and its input/select when a radio button 
+    is clicked and will change the opacity of a unclicked radio button and its input/select*/
     document.querySelectorAll('input[type=radio][name="chooseSong"]').forEach(function(radio) {
-        console.log("Attaching event listener to:", radio);
         radio.addEventListener('change', function() {
-            console.log("Radio button changed - simplified test"); 
-            console.log("Radio button changed:", radio.value);
-            document.querySelectorAll('.form-group').forEach(function(group) {
-                console.log("Checking group: ", group);
-                if (!group.contains(radio)) {
+            document.querySelectorAll('.form-group').forEach(function(e) {
+                if (!e.contains(radio)) {
                     group.style.opacity = '0.5';
-                    let inputs = group.querySelectorAll('input, select');
+                    let inputs = e.querySelectorAll('input, select');
                     inputs.forEach(input => {
                         input.disabled = true;
-                        console.log("Disabling input: ", input);
                     });
                 } else {
-                    group.style.opacity = '1';
-                    let inputs = group.querySelectorAll('input, select');
+                    e.style.opacity = '1';
+                    let inputs = e.querySelectorAll('input, select');
                     inputs.forEach(input => {
                         input.disabled = false;
-                        console.log("Enabling input: ", input);
                     });
                 }
             });
         });
     });
 
-    /* url of song api --- https versions hopefully a little later this semester */	
+    /* api and json files */	
     const api = 'https://www.randyconnolly.com/funwebdev/3rd/api/music/songs-nested.php';
     const artist = JSON.parse(content1);
     const genres = JSON.parse(content2);
 
 
-    //for the select values of artist and genres
+    //for the option values from the artist and genres json files. 
     selectOptions('#artist-select', artist);
     selectOptions('#genre-select', genres);
 
 
-    //fetch
+    /* This function is used to fetch the songs and recieved the song content, otherwise display an error. 
+    it will get the information for sorting and displaying the songs. When user clicks on the sorting arrow, 
+    it will get the information for the song that is sorted from A-Z or descendant of numbers. Storing the songs on a songsKey in the localStorage */
     let songsList = [];
     const songKey = 'songsKey';
 
@@ -91,7 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(api)
         .then(response => response.json())
         .then(songs => {
-            console.log('Fetched Songs:', songs); 
             songsList = songs;
             localStorage.setItem(songKey, JSON.stringify(songsList));
             sortList(songsList);
@@ -102,13 +102,14 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    //Display the songs on the search/browse and sort list when user click on a song.
     function displaySongs(songs){
-        console.log('Displaying Songs:', songs); 
         listSongs(songs);
         sortList(songs);
     }
 
-    //localStorage 
+    /*LocalStorage to place our songs and display the information, other keep fetching it 
+    until song information is found*/
 
     if(localStorage.getItem(songKey)) {
         songsList = JSON.parse(localStorage.getItem(songKey));
@@ -117,63 +118,79 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchSongs();
     }
 
+    //invoke displayPlaylist
     displayPlayList();
 
+    /*load the save songContent after refreshing the page*/ 
     function loadSongs() {
         const savedPlaylist = localStorage.getItem('playlist');
         return savedPlaylist ? JSON.parse(savedPlaylist) : [];
     }
 
+    //This function is used to display the content of the playlist page when song is added, and invoking it above
     function displayPlayList() {
+        //displaying the songs li on the playlist-list ul on the markup
         const playlistElement = document.querySelector('.playlist-page #playlist-list');
-        playlistElement.textContent = ''; // Clears the existing playlist
+        playlistElement.textContent = ''; 
     
+        /*Used to store the current list of songs in the playlist retrieved from localStorage
+        and make a row for each of the song for each of the song*/
         let playlistData = loadSongs();
+
+            
+        // appending each of the li elements in the playlist-header to make a list
         for (const song of playlistData) {
             const playlistRow = document.createElement('li');
-    
-            // Assuming you want to display the title, artist, and other details in the playlist
-            playlistRow.innerHTML = `
-                <span>${song.title}</span>
-                <span>${song.artist}</span>
-                <span>${song.year}</span>
-                <span>${song.genre}</span>
-                <span>${song.popularity}</span>
-            `;
-    
-            // Optionally, you can add a remove button to each song in the playlist
+            playlistRow.appendChild(createSpan(song.title));
+            playlistRow.appendChild(createSpan(song.artist));
+            playlistRow.appendChild(createSpan(song.year));
+            playlistRow.appendChild(createSpan(song.genre));
+            playlistRow.appendChild(createSpan(song.popularity));
+
+            // remove button to remove a song from a list
             const removeButton = document.createElement('button');
             removeButton.textContent = 'Remove';
             removeButton.className = 'remove-playlist';
+            
+            //update playlist data when a song is removed
             removeButton.addEventListener('click', function() {
-                // Logic to remove the song from playlistData and update local storage
-
-                playlistData = playlistData.filter(pSong => pSong.title !== song.title);
-
-            // Save the updated playlist
+            playlistData = playlistData.filter(pSong => pSong.title !== song.title);
             saveSong(playlistData);
-
-            // Re-display the updated playlist
             displayPlayList();
             });
+
             playlistRow.appendChild(removeButton);
-    
-            playlistElement.appendChild(playlistRow); // Adds the new row to the playlist
+            playlistElement.appendChild(playlistRow);
         }
     }
 
+    //save the songs when adding to playlist
     function saveSong(playlist) {
         localStorage.setItem('playlist', JSON.stringify(playlist));
     }
 
-    function createSpanElement(content) {
+    //create span for each of the header
+    function createSpan(content) {
         const span = document.createElement("span");
         span.textContent = content;
         return span;
     }
     
+    //function is to make sure there isn't any duplication of adding songs to playlist
     function addToPlaylist(song, playlistData) {
-        if (!playlistData.some(pSong => pSong.title === song.title && pSong.artist === song.artist.name)) {
+        let isDuplicate = false;
+    
+        //checking for each song if there's any duplication, if there is break the loop.
+        for (let i = 0; i < playlistData.length; i++) {
+            if (playlistData[i].title === song.title && playlistData[i].artist === song.artist.name) {
+                isDuplicate = true;
+                break; 
+            }
+        }
+    
+        /*if song is not a duplication, push the songs and save them and display it on the 
+        playlist page otherwise popup a snackbar that says that song has already been added.*/
+        if (!isDuplicate) {
             playlistData.push({
                 title: song.title,
                 artist: song.artist.name,
@@ -183,45 +200,50 @@ document.addEventListener("DOMContentLoaded", function () {
             });
             saveSong(playlistData);
             displayPlayList();
+            showSnackbar("Song has been added to the Playlist page");
         } else {
-            console.log("Song already in the playlist");
+            showSnackbar("Song has already been added")
         }
     }
 
+    //Function used to list the songs in the search/browse page
     function listSongs(songsList) {
+
+        //displaying the songs li on the songs-list ul on the markup
         const table = document.querySelector("#songs-list");
         table.textContent = '';
-    
-        songsList.forEach(song => {
+        
+        // appending each of the li elements in the songs-list-header to make a list
+        for (const song of songsList) {
             const row = document.createElement("li");
-            row.appendChild(createSpanElement(song.title));
-            row.appendChild(createSpanElement(song.artist.name));
-            row.appendChild(createSpanElement(song.year));
-            row.appendChild(createSpanElement(song.genre.name));
-            row.appendChild(createSpanElement(song.details.popularity));
+            row.appendChild(createSpan(song.title));
+            row.appendChild(createSpan(song.artist.name));
+            row.appendChild(createSpan(song.year));
+            row.appendChild(createSpan(song.genre.name));
+            row.appendChild(createSpan(song.details.popularity));
     
+            //add button to add the songs to the playlistData and adding it to playlist
             const addButton = document.createElement("button");
             addButton.textContent = "Add";
             addButton.className = "add-playlist";
-            addButton.addEventListener('click', function(event) {
-            event.stopPropagation(); 
-            let playlistData = loadSongs();
-            addToPlaylist(song, playlistData);
-
-            showSnackbar();
+            addButton.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                let playlistData = loadSongs();
+                addToPlaylist(song, playlistData);
             });
-
+    
+            //adding a span to the add button.
             const buttonSpan = document.createElement("span");
             buttonSpan.appendChild(addButton);
             row.appendChild(buttonSpan);
-
+    
+            //when clicking on a row of a certain song, show the song information page with that specific song.
             row.addEventListener('click', () => singleSongInfo(song));
-
             table.appendChild(row);
-    });
+        }
     }
 
-
+    //filter button to filter the songs when a radio button is selected and choosing an option or typing it. 
     document.querySelector('#filterButton').addEventListener('click', function (e) {
         e.preventDefault();
         const selectedFilter = document.querySelector('input[name="chooseSong"]:checked').value;
@@ -229,26 +251,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
+    //clear button to revert back to original and enable all the radio button.
      document.querySelector('#clearButton').addEventListener('click', function(e) {
          listSongs(songsList);
+         let inputs = e.querySelectorAll('input, select');
          inputs.forEach(input => {
             input.disabled = false;
          });
-         e.preventDefault();
      });
-
-
     
-    function filterList(column) {
+    /*Function is used to filter the list with the radio button that is selected, 
+    and adding lowercase to make the searchbox find the specific song*/
+    function filterList(radiobutton) {
         let filterSongs;
     
-        if(column === 'title') {
+        if(radiobutton === 'title') {
             const searchBox = document.querySelector('.search').value.toLowerCase();
             filterSongs = songsList.filter(song => song.title.toLowerCase().includes(searchBox));
-        }  else if (column === 'artist') {
+        }  else if (radiobutton === 'artist') {
             const selectArtist = document.querySelector('#artist-select').value;
             filterSongs = songsList.filter(song => String(song.artist.id) === selectArtist);
-        } else if (column === 'genre') {
+        } else if (radiobutton === 'genre') {
             const selectGenre = document.querySelector('#genre-select').value;
             filterSongs = songsList.filter(song => String(song.genre.id) === selectGenre);
         } else {
@@ -258,6 +281,8 @@ document.addEventListener("DOMContentLoaded", function () {
         listSongs(filterSongs);
     }
 
+    /* when user click on the arrow beside the span elements in search/browse page, it will sort the list using the sortSongs 
+    and list the songs again*/
     function sortList(songsList) {
         const arrows = document.querySelectorAll('.sArrow');
         arrows.forEach(arrow => {
@@ -265,23 +290,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 const column = this.dataset.column;
                 sortSongs(songsList, column);
                 listSongs(songsList);
-
             });
         });
     }
 
-    function showSnackbar() {
-        const snackbar = document.querySelector("#snackbar");
-        snackbar.style.display = "block";
-        snackbar.textContent = "Song was added";
-        setTimeout(() => {
-          snackbar.style.display = "none";
-        }, 3000);
-      }
-
 });
 
-function sortSongs(songsList, column) {
+    /* sort the songs where comparing string would be alphbetically but numbers first then A-Z, 
+    and if list is a number, it will sort the list in descending order*/
+    function sortSongs(songsList, column) {
         songsList.sort((a, b) => {
             let compareA, compareB;
 
@@ -323,8 +340,11 @@ function sortSongs(songsList, column) {
         });
 }
 
-let currentChart = null;
-function singleSongInfo(song) {
+    /*Creating the single song page when a song is clicked, and it will show the 
+    information of the song along with its radar chart*/
+    let currentChart = null;
+    function singleSongInfo(song) {
+    //create list on single Song info and analysis song information.
     const singleSongInfo = document.querySelector('.single-song-info');
     const analysisSongInfo = document.querySelector('.analysis-song-info');
 
@@ -346,13 +366,13 @@ function singleSongInfo(song) {
     analysisSongInfo.appendChild(createListItem(`speechiness: ${song.analytics.speechiness}`));
     analysisSongInfo.appendChild(createListItem(`popularity: ${song.details.popularity}`));
 
+    /* displaying song information on a radar chart*/
     const canvas = document.querySelector('#radarChart');
-    // If there's a chart already drawn, destroy it
     if (currentChart) {
         currentChart.destroy();
     }
 
-    // Prepare the data for the radar chart
+    //Displaying the data on the radar chart and creating it.
     const radarChartData = {
         labels: ['BPM', 'Energy', 'Danceability', 'Liveness', 'Valence', 'Acousticness', 'Speechiness', 'Popularity'],
         datasets: [{
@@ -377,9 +397,7 @@ function singleSongInfo(song) {
         }]
     };
 
-    // Get the context of the canvas element
     const ctx = canvas.getContext('2d');
-    // Create a new chart instance
     currentChart = new Chart(ctx, {
         type: 'radar',
         data: radarChartData,
@@ -401,13 +419,14 @@ function singleSongInfo(song) {
     });
 
 }
-
+/*create the list on the single song information page*/
 function createListItem(text) {
     const listItem = document.createElement('li');
     listItem.textContent = text;
     return listItem;
 }
 
+/*getting the option values of the content with the radio button that has a select element*/
 function selectOptions(selectID, data) {
     const select = document.querySelector(selectID);
     data.forEach(items=> {
@@ -417,3 +436,28 @@ function selectOptions(selectID, data) {
         select.appendChild(option);
     });
 }
+
+function showSnackbar(message) {
+    const snackbar = document.querySelector("#snackbar");
+    snackbar.style.display = "block";
+    snackbar.textContent = message;
+    snackbar.className = "show";
+
+    setTimeout(() => {
+      snackbar.style.display = "none";
+    }, 3000);
+  }
+
+  const creditsButton = document.querySelector('#credit-button');
+  const creditsPopup = document.querySelector('#credits-popup');
+
+   creditsButton.addEventListener('mouseover', function () {
+   creditsPopup.style.display = 'block';
+
+   setTimeout(() => {
+    // creditsPopup.textContent = "Credit";
+    console.log("Timeout function");
+   creditsPopup.style.display = 'none';
+   }, 5000);
+});
+ 
