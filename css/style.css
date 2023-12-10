@@ -163,27 +163,6 @@ h2 {
     margin-right: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse; 
-  }
-
-  th {
-    background-color: #e3e3e3; 
-    text-align: left; 
-  }
-
-  td, th {
-    padding: 8px; 
-    border: 1px solid hsl(0, 0%, 94%); 
-  }
-
-  th, td {
-    text-align: center;
-    padding: 8px;
-  }
-
-
 #song-table {
     width: 100%;
 }
@@ -196,7 +175,7 @@ table {
     max-height: 500px;
 }
 
-.songs-list li {
+.songs-list li{
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -205,14 +184,13 @@ table {
         padding: 10px 0;
 }
 
-
 .songs-list li > span {
     flex: 1;
     text-align: left;
     padding: 0 10px;
 }
 
-.songs-list-header {
+.songs-list-header  {
     display: flex;
     justify-content: space-between;
     font-weight: bold;
@@ -309,52 +287,68 @@ ul {
     height: 300px;
   }
 
-
-
-/* .form-group select {
-    flex-grow: 1;
-} */
-
-/* .container3 {
-    width: 50%;
-    height: auto;
-    width: 50%;
-} */
-
-
-#header-close-button, 
-#header-credits-button, 
-#tablebutton{
-    width: auto;
-    height: auto;
-}
-
-#header-close-button, 
-#header-credits-button {
-
-}
-
 .parent-button, .hide-playlist-button {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* This ensures vertical alignment */
-    padding: 20px; /* Adjust padding as needed, this should match header padding */
-    position: relative; /* Positioning context for absolute children */
+    align-items: center; 
+    padding: 20px; 
+    position: relative; 
 }
 
 
 button {
-    margin: 0; /* Adjust or remove if necessary */
-    padding: 10px 15px; /* Adjust padding to match other buttons if necessary */
+    margin: 0; 
+    padding: 10px 15px; 
+}
+
+.container6 {
+    margin: 0;
+    padding: 15px;
+}
+
+.playlist-header,.play-list li {
+    display: flex; 
+    justify-content: space-between; 
+    padding: 5px 0; 
+    border-bottom: 1px solid #ccc; 
+}
+
+.playlist-header {
+    background: #f2f2f2; 
+    padding: 5px 0; 
+    font-weight: bold; 
+    margin-bottom: 5px; 
+}
+
+.playlist-header span, .play-list li span {
+    flex: 1; 
+    text-align: center; 
+    padding: 0 5px; 
+}
+
+.play-list {
+    margin: 0; 
+    padding: 0; 
+}
+
+.play-list li span, .play-list li button {
+    flex: 2;
+    text-align: center; 
+    padding: 0 10px; 
+}
+
+.play-list li button {
+    margin-left: 15px 5px; 
+    padding: 5px 5px; 
+    cursor: pointer; 
 }
 
 #snackbar {
     display: none;
     position:fixed;
     top: 10px;
-    left: 45%;
-    background-color: rgb(47, 54, 47);
+    left: 43%;
+    background-color: rgb(114, 2, 2);
     color: #fff;
-    padding: 16px;
+    padding: 13px;
   }
- 
