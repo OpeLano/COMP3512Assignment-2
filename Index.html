@@ -10,7 +10,7 @@
 
 </head>
    
-<!--header with the buttons and title-->
+<!--header with the buttons and title and credit-->
 <header>
    <h2>Assignment 2</h2>
    <div class="parent-button">
@@ -21,6 +21,10 @@
       <div class="hide-button" hidden>
         <button id="close-view-button" type="button">Close View</button>
       </div>
+      <div class="popup" id="credits-popup">
+         <p>Created by Shamil Baig and Ope Lano</p>
+         <p><a href="https://github.com/OpeLano/COMP3512Assignment-2">Github URL</a></p>
+       </div>
     </div>
    </header>
 <!--Body that contains the markup for search/browse page, single song information, and playlist page-->
@@ -106,10 +110,6 @@
    <h2>Assignment 2</h2>
 </footer>
 
-<!-- <header>
-   <button id = "header-credits-button" type = "button">Credits</button>
-</header> -->
-
 <!--markup for the playlist page and list of songs-->
 <div class = "playlist-page" hidden>
          <div class = "container6">
@@ -125,6 +125,7 @@
             <ul id ="playlist-list" class="play-list">
       
             </ul>
+            <button id = "clear-songs">Clear Playlist</button>
          </div>
    </div>
 <!--JSON files for the option values of the aside content-->
