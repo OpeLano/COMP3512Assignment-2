@@ -34,7 +34,7 @@ header h2 {
 
 #playlist-button, #credit-button, #close-view-button {
     background-color: rgb(27, 0, 0);
-    margin-bottom: 48px;
+    margin-bottom: 50px;
 }
 
 #credit-button {
@@ -171,7 +171,7 @@ h2 {
     list-style-type: none;
     margin: 0;
     padding-left: 0;
-    overflow-y: auto;
+    overflow-y: scroll;
     max-height: 500px;
 }
 
@@ -182,6 +182,7 @@ h2 {
         padding: 10px;
         border-bottom: 1px solid #ccc;
         padding: 10px 0;
+        cursor: pointer;
 }
 
 .songs-list li > span {
@@ -329,6 +330,8 @@ button {
 .play-list {
     margin: 0; 
     padding: 0; 
+    max-height: 400px;
+    overflow-y: scroll;
 }
 
 .play-list li span, .play-list li button {
@@ -352,3 +355,11 @@ button {
     color: #fff;
     padding: 13px;
   }
+
+#credits-popup {
+    color: black;
+    display: none; 
+    position: absolute; 
+    background-color: #ededed; 
+    padding: 10px; 
+}
