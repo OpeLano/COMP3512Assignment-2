@@ -4,11 +4,13 @@
    <meta charset="utf-8">
    <title>Assignment 1</title>
    <link rel="stylesheet" href = "css/style.css">
+   <!-- JS script and radar chart JS-->
    <script src="js/main.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
    
+<!--header with the buttons and title-->
 <header>
    <h2>Assignment 2</h2>
    <div class="parent-button">
@@ -21,7 +23,9 @@
       </div>
     </div>
    </header>
+<!--Body that contains the markup for search/browse page, single song information, and playlist page-->
 <body>
+   <!--Search Page list and ul elements-->
    <div class ="search-page">
 <article>
    <div class = "container1">
@@ -39,6 +43,7 @@
       </ul>
    </div>
 </article>
+<!--The radio button with its select/text search and filter and clear buttons-->
 <aside>
    <div class ="container2">
       <form class=box>
@@ -58,14 +63,14 @@
               <input type="radio" id="artistSearch" name="chooseSong" value="artist">
               <label for="artistSearch">Artist</label>
               <select id="artist-select">
-                <option value="">Select an Artist</option>
+                <option value="">Select Artist</option>
               </select>
             </div>
             <div class="form-group">
               <input type="radio" id="genreSearch" name="chooseSong" value="genre">
               <label for="genreSearch">Genre</label>
               <select id="genre-select">
-                <option value="">Select a Genre</option>
+                <option value="">Select Genre</option>
               </select>
             </div>
           </div>
@@ -75,6 +80,7 @@
       </form>
    </div>
    </aside>
+   <!--Single Song information of displaying the song information and radar chart-->
 </div>
    <section class = "song-display" hidden>
    <div class = "song-information">
@@ -95,45 +101,36 @@
 </div>
 </section>
 
+<!--Footer of the assignment-->
 <footer>
    <h2>Assignment 2</h2>
 </footer>
 
+<!-- <header>
+   <button id = "header-credits-button" type = "button">Credits</button>
+</header> -->
 
-
+<!--markup for the playlist page and list of songs-->
 <div class = "playlist-page" hidden>
-      <article>
          <div class = "container6">
          <h2>Playlist Details</h2>
-         <div class="songs-list-header">
-            <span>Title<span class="sArrow" data-column="title">&#9660;</span></span>
-            <span>Artist<span class="sArrow" data-column="artist.name">&#9660;</span></span>
-            <span>Year<span class="sArrow" data-column="year">&#9660;</span></span>
-            <span>Genre<span class="sArrow" data-column="genre.name">&#9660;</span></span>
-            <span>Popularity<span class="sArrow" data-column="details.popularity">&#9660;</span></span>
+         <div class="playlist-header">
+            <span>Title</span>
+            <span>Artist</span>
+            <span>Year</span>
+            <span>Genre</span>
+            <span>Popularity</span>
             <span>Remove Song</span>
             </div>
-            <ul id ="songs-list" class="songs-list">
+            <ul id ="playlist-list" class="play-list">
       
             </ul>
          </div>
-      </article>
    </div>
-
-
-
-
-
-
-
-
-
-
-
+<!--JSON files for the option values of the aside content-->
 <script src="js/genres.json"></script>
 <script src="js/artists.json"></script>
-<script src="js/sample-songs.json"></script>
 </body>
-
-<div id="snackbar">Song was added</div>
+<!--snackbar-->
+<div id="snackbar"></div>
 </html>
