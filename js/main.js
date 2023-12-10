@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const playlistPage = document.querySelector('.playlist-page');
     const hideplayListButton = document.querySelector('.hide-playlist-button');
     const songsListHeader = document.querySelector('.songs-list');
+    const playListHeader = document.querySelector('.play-list');
 
 
     //functions to the hide and show a specific page 
@@ -47,6 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
         showPage([searchPage, songDisplayPage], false); 
         showPage([playlistPage, hideButton], true); 
         showPage([hideplayListButton], false); 
+    });
+
+    /*When clicking on song on playlist, it should display the content. However I couldn't get it working*/
+    playListHeader.addEventListener('click', function (e) {
+        if (e.target.tagName === 'SPAN') {
+            showPage([searchPage, playlistPage], false); 
+            showPage([songDisplayPage], true); 
+            showPage([hideButton], true); 
+            showPage([hideplayListButton], false); 
+        }
     });
 
     /*When moving mouse to credit button, it will display our names and GitHub link */
@@ -137,6 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function loadSongs() {
         const savedPlaylist = localStorage.getItem('playlist');
         return savedPlaylist ? JSON.parse(savedPlaylist) : [];
+        
     }
 
     //This function is used to display the content of the playlist page when song is added, and invoking it above
@@ -149,7 +161,26 @@ document.addEventListener("DOMContentLoaded", function () {
         and make a row for each of the song for each of the song*/
         let playlistData = loadSongs();
 
-            
+        //Calculating the total amount of songs and popularity in the playlist songs.
+        const total = playlistData.length;
+        let totalPopularity = 0;
+        for (let i = 0; i < total; i++) {
+        totalPopularity += playlistData[i].popularity;
+        }
+
+        let averagePopularity;
+        if (total > 0) {
+        averagePopularity = totalPopularity / total;
+        } else {
+        averagePopularity = 0;
+        }
+
+        const totalSongsElement = document.querySelector('#total-songs');
+        const averagePopularityElement = document.querySelector('#average-popularity');
+
+        totalSongsElement.textContent = `Total Songs: ${total}`;
+        averagePopularityElement.textContent = `Average Popularity: ${averagePopularity.toFixed(2)}`;
+     
         // appending each of the li elements in the playlist-header to make a list
         for (const song of playlistData) {
             const playlistRow = document.createElement('li');
@@ -180,13 +211,15 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             playlistRow.appendChild(removeButton);
+
+            playlistRow.addEventListener('click', () => singleSongInfo(song));
             playlistSongsList.appendChild(playlistRow);
         }
     }
 
     //save the songs when adding to playlist
-    function saveSong(playlist) {
-        localStorage.setItem('playlist', JSON.stringify(playlist));
+    function saveSong(playlistData) {
+        localStorage.setItem('playlist', JSON.stringify(playlistData));
     }
 
     //create span for each of the header
@@ -198,6 +231,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
     //function is to make sure there isn't any duplication of adding songs to playlist
     function addToPlaylist(song, playlistData) {
+        console.log("Adding to playlist", song);
         let isDuplicate = false;
     
         //checking for each song if there's any duplication, if there is break the loop.
@@ -208,15 +242,23 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     
-        /*if song is not a duplication, push the songs and save them and display it on the 
+        /*if song is not a duplication, push the songs, save them on the playlistData, and display it on the 
         playlist page otherwise popup a snackbar that says that song has already been added.*/
         if (!isDuplicate) {
             playlistData.push({
                 title: song.title,
                 artist: song.artist.name,
-                year: song.year,
                 genre: song.genre.name,
-                popularity: song.details.popularity
+                year: song.year,
+                duration: song.details.duration,
+                popularity: song.details.popularity,
+                bpm: song.details.bpm,
+                energy: song.analytics.energy,
+                danceability: song.analytics.danceability,
+                liveness: song.analytics.liveness,
+                valence: song.analytics.valence,
+                acousticness: song.analytics.acousticness,
+                speechiness: song.analytics.speechiness
             });
             saveSong(playlistData);
             displayPlayList();
@@ -364,6 +406,7 @@ document.addEventListener("DOMContentLoaded", function () {
     information of the song along with its radar chart*/
     let currentChart = null;
     function singleSongInfo(song) {
+    console.log("Song in singleSongInfo: ", song);
     //create list on single Song info and analysis song information.
     const singleSongInfo = document.querySelector('.single-song-info');
     const analysisSongInfo = document.querySelector('.analysis-song-info');
@@ -457,7 +500,7 @@ function selectOptions(selectID, data) {
     });
 }
 
-/*snackBar for when adding a page or hovering over the credit button*/ 
+/*snackBar for when adding a song to a page and displaying message*/ 
 function showSnackbar(message) {
     const snackbar = document.querySelector("#snackbar");
     snackbar.style.display = "block";
